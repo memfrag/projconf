@@ -1,0 +1,3 @@
+[submodule "vendor/MJProjectKit"]
+	path = vendor/MJProjectKit
+	url = git://github.com/memfrag/MJProjectKit.git
