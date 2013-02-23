@@ -9,19 +9,19 @@ Licensed under the MIT license.
 1. Clone the repo.
 2. Update the submodules:
 
- git submodule update --init --recursive
+   git submodule update --init --recursive
 
 3. Open projconf.xcodeproj in Xcode
 4. Build!
 
 # Using
 
-  projconf <projectFile.pbxproj> <outputDirectory>
+    projconf <projectFile.pbxproj> <outputDirectory>
 
 Example:
 
-  mkdir /tmp/configfiles
-  ./projconf /path/to/someproject.xcodeproj/project.pbxproj /tmp/configfiles
+    mkdir /tmp/configfiles
+    ./projconf /path/to/someproject.xcodeproj/project.pbxproj /tmp/configfiles
 
 # Results
 
@@ -31,12 +31,12 @@ one target level xconfig file for each target and configuration pair.
 Let's say that the project has two configurations; Debug and Release. The project also has two targets;
 targetA and targetB. Then the following files will be generated:
 
-  project-Debug.xcconfig
-  project-Release.xcconfig
-  target-targetA-Debug.xcconfig
-  target-targetA-Release.xcconfig
-  target-targetB-Debug.xcconfig
-  target-targetB-Release.xcconfig
+    project-Debug.xcconfig
+    project-Release.xcconfig
+    target-targetA-Debug.xcconfig
+    target-targetA-Release.xcconfig
+    target-targetB-Debug.xcconfig
+    target-targetB-Release.xcconfig
 
 # File Contents
 
@@ -49,14 +49,14 @@ done from the xcconfig file.
 
 Here's an example snippet from the Architectures section from a generated xcconfig file.
 
-  // --- Architectures ---
-  
-    // ADDITIONAL_SDKS = 
-  ARCHS = armv7
-  SDKROOT = iphoneos5.1
-  ONLY_ACTIVE_ARCH = NO
-    // SUPPORTED_PLATFORMS = 
-  VALID_ARCHS = armv7
+    // --- Architectures ---
+    
+      // ADDITIONAL_SDKS = 
+    ARCHS = armv7
+    SDKROOT = iphoneos5.1
+    ONLY_ACTIVE_ARCH = NO
+      // SUPPORTED_PLATFORMS = 
+    VALID_ARCHS = armv7
 
-In this example, ADDITIONAL_SDKS and SUPPORTED_PLATFORMS have not been configured in the project file,
+In this example, `ADDITIONAL_SDKS` and `SUPPORTED_PLATFORMS` have not been configured in the project file,
 and thus they are commented out.
