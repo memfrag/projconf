@@ -94,9 +94,9 @@
 		5B9564F116D913100071DE71 /* projconf */ = {
 			isa = PBXGroup;
 			children = (
-				5B9564F216D913100071DE71 /* main.m */,
 				5BBE248B16D9385300F375CC /* buildSettingsList.h */,
 				5BBE248C16D9385300F375CC /* buildSettingsList.m */,
+				5B9564F216D913100071DE71 /* main.m */,
 				5B9564F416D913100071DE71 /* Supporting Files */,
 			);
 			path = projconf;

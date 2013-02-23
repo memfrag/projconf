@@ -27,30 +27,30 @@
 NSArray *getBuildSettingsSections(void)
 {
     return @[
-             @"Architectures",
-             @"Build Locations",
-             @"Build Options",
-             @"Code Signing",
-             @"Deployment",
-             @"Kernel Module",
-             @"Linking",
-             @"Packaging",
-             @"Search Paths",
-             @"Unit Testing",
-             @"Versioning",
-             @"Apple LLVM compiler - Code Generation",
-             @"Apple LLVM compiler - Language",
-             @"Apple LLVM compiler - Preprocessing",
-             @"Apple LLVM compiler - Warning Policies",
-             @"Apple LLVM compiler - Warnings - All languages",
-             @"Apple LLVM compiler - Warnings - C++",
-             @"Apple LLVM compiler - Warnings - Objective-C",
-             @"Interface Builder XIB Compiler - Options",
-             @"OSACompile - Build Options",
-             @"Static Analyzer - Checks",
-             @"Static Analyzer - Checks - Objective-C",
-             @"Static Analyzer - Checks - Security"
-             ];
+        @"Architectures",
+        @"Build Locations",
+        @"Build Options",
+        @"Code Signing",
+        @"Deployment",
+        @"Kernel Module",
+        @"Linking",
+        @"Packaging",
+        @"Search Paths",
+        @"Unit Testing",
+        @"Versioning",
+        @"Apple LLVM compiler - Code Generation",
+        @"Apple LLVM compiler - Language",
+        @"Apple LLVM compiler - Preprocessing",
+        @"Apple LLVM compiler - Warning Policies",
+        @"Apple LLVM compiler - Warnings - All languages",
+        @"Apple LLVM compiler - Warnings - C++",
+        @"Apple LLVM compiler - Warnings - Objective-C",
+        @"Interface Builder XIB Compiler - Options",
+        @"OSACompile - Build Options",
+        @"Static Analyzer - Checks",
+        @"Static Analyzer - Checks - Objective-C",
+        @"Static Analyzer - Checks - Security"
+    ];
 }
 
 
