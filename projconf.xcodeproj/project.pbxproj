@@ -9,7 +9,25 @@
 /* Begin PBXBuildFile section */
 		5B9564F016D913100071DE71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9564EF16D913100071DE71 /* Foundation.framework */; };
 		5B9564F316D913100071DE71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9564F216D913100071DE71 /* main.m */; };
+		5B95650516D917DF0071DE71 /* MJProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B95650216D917BF0071DE71 /* MJProjectKit.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5B95650116D917BF0071DE71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5B95648116D8E99D0071DE71;
+			remoteInfo = MJProjectKit;
+		};
+		5B95650316D917DA0071DE71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B95648016D8E99D0071DE71;
+			remoteInfo = MJProjectKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		5B9564EA16D913100071DE71 /* CopyFiles */ = {
@@ -28,6 +46,7 @@
 		5B9564EF16D913100071DE71 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5B9564F216D913100071DE71 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5B9564F516D913100071DE71 /* projconf-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "projconf-Prefix.pch"; sourceTree = "<group>"; };
+		5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MJProjectKit.xcodeproj; path = vendor/MJProjectKit/MJProjectKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B95650516D917DF0071DE71 /* MJProjectKit.framework in Frameworks */,
 				5B9564F016D913100071DE71 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +65,7 @@
 		5B9564E316D913100071DE71 = {
 			isa = PBXGroup;
 			children = (
+				5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */,
 				5B9564F116D913100071DE71 /* projconf */,
 				5B9564EE16D913100071DE71 /* Frameworks */,
 				5B9564ED16D913100071DE71 /* Products */,
@@ -84,6 +105,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5B9564FE16D917BF0071DE71 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B95650216D917BF0071DE71 /* MJProjectKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -98,6 +127,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5B95650416D917DA0071DE71 /* PBXTargetDependency */,
 			);
 			name = projconf;
 			productName = projconf;
@@ -123,12 +153,28 @@
 			mainGroup = 5B9564E316D913100071DE71;
 			productRefGroup = 5B9564ED16D913100071DE71 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5B9564FE16D917BF0071DE71 /* Products */;
+					ProjectRef = 5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5B9564EB16D913100071DE71 /* projconf */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5B95650216D917BF0071DE71 /* MJProjectKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MJProjectKit.framework;
+			remoteRef = 5B95650116D917BF0071DE71 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5B9564E816D913100071DE71 /* Sources */ = {
@@ -140,6 +186,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B95650416D917DA0071DE71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MJProjectKit;
+			targetProxy = 5B95650316D917DA0071DE71 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5B9564F816D913100071DE71 /* Debug */ = {
