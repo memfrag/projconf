@@ -23,15 +23,158 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MJProjectKit/MJProjectKit.h>
+#import "buildSettingsList.h"
+
+static NSArray *buildSettingsSections;
+static NSDictionary *buildSettingsList;
+
+static BOOL isUserDefinedVariable(NSString *name)
+{
+    for (NSString *sectionName in buildSettingsList.allKeys) {
+        NSArray *settings = buildSettingsList[sectionName];
+        for (NSString *setting in settings) {
+            if ([setting isEqualToString:name]) {
+                return NO;
+            }
+        }
+    }
+    
+    return YES;
+}
+
+static void checkOutputPath(NSString *configPath)
+{
+    BOOL outputPathIsDirectory = NO;
+    BOOL outputPathExists = [[NSFileManager defaultManager] fileExistsAtPath:configPath
+                                                                 isDirectory:&outputPathIsDirectory];
+    if (!outputPathExists) {
+        NSLog(@"ERROR: Output path \"%@\" does not exist.", configPath);
+        exit(1);
+    }
+    if (!outputPathIsDirectory) {
+        NSLog(@"ERROR: Output path \"%@\" is not a directory.", configPath);
+        exit(1);
+    }
+}
+
+static void writeConfigFile(NSString *configPath, NSString *filename, NSString *contents)
+{
+    NSString *filePath = [[configPath stringByAppendingPathComponent:filename]
+                                stringByAppendingPathExtension:@"xcconfig"];
+    
+    __autoreleasing NSError *error = nil;
+    BOOL success = [contents writeToFile:filePath
+                              atomically:YES
+                                encoding:NSUTF8StringEncoding
+                                   error:&error];
+    if (!success) {
+        NSLog(@"ERROR: Failed to write to file \"%@\".", filePath);
+        exit(1);
+    }
+}
+
+static void writeBuildConfigToFile(MJXCBuildConfiguration *buildConfig,
+                                   NSString *configPath,
+                                   NSString *filename)
+{
+    NSMutableString *fileContents = [NSMutableString stringWithCapacity:65536];
+
+    [fileContents appendString:@"\n// --- User Defined Settings ---\n\n"];
+    for (NSString *key in buildConfig.buildSettings.allKeys) {
+        if (isUserDefinedVariable(key)) {
+            id value = buildConfig.buildSettings[key];
+            if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
+                [fileContents appendFormat:@"%@ = ", key];
+                for (NSString *entry in value) {
+                    [fileContents appendFormat:@"%@ ", entry];
+                }
+                [fileContents appendString:@"\n"];
+            } else {
+                [fileContents appendFormat:@"%@ = %@\n", key, (NSString *)value];
+            }
+        }
+    }
+    
+    for (NSString *sectionName in buildSettingsSections) {
+        [fileContents appendFormat:@"\n// --- %@ ---\n\n", sectionName];
+        NSArray *section = buildSettingsList[sectionName];
+        for (NSString *key in section) {
+            id value = buildConfig.buildSettings[key];
+            if (value) {
+                if ([value conformsToProtocol:@protocol(NSFastEnumeration)]) {
+                    [fileContents appendFormat:@"%@ = ", key];
+                    for (NSString *entry in value) {
+                        [fileContents appendFormat:@"%@ ", entry];
+                    }
+                    [fileContents appendString:@"\n"];
+                } else {
+                    [fileContents appendFormat:@"%@ = %@\n", key, (NSString *)value];
+                }
+            } else {
+                [fileContents appendFormat:@"  // %@ = \n", key];
+            }
+        }
+    }
+    
+    writeConfigFile(configPath, filename, fileContents);
+}
+
+static void extractConfigFromProjectWithURL(NSURL *projectURL, NSString *configPath)
+{
+    __autoreleasing NSError *error = nil;
+    MJProject *projectWrapper = [MJProject projectWithContentsOfURL:projectURL
+                                                              error:&error];
+    if (!projectWrapper) {
+        NSLog(@"ERROR: %@", error.localizedDescription);
+        exit(1);
+    }
+    
+    checkOutputPath(configPath);
+    
+    MJPBXProject *project = [projectWrapper.projects objectForKey:projectWrapper.rootObject];
+    
+    MJXCConfigurationList *projectConfigList = [projectWrapper configurationListById:project.buildConfigurationList];
+    for (NSString *buildConfigUuid in projectConfigList.buildConfigurations) {
+        MJXCBuildConfiguration *buildConfig = [projectWrapper buildConfigurationById:buildConfigUuid];
+        NSLog(@"BUILD CONFIG: project-%@.xcconfig", buildConfig.name);
+        NSString *filename = [NSString stringWithFormat:@"project-%@", buildConfig.name];
+        writeBuildConfigToFile(buildConfig, configPath, filename);
+    }
+    
+    for (NSString *targetUuid in project.targets) {
+        MJPBXNativeTarget *target = [projectWrapper nativeTargetById:targetUuid];
+        MJXCConfigurationList *targetConfigList = [projectWrapper configurationListById:target.buildConfigurationList];
+        for (NSString *buildConfigUuid in targetConfigList.buildConfigurations) {
+            MJXCBuildConfiguration *buildConfig = [projectWrapper buildConfigurationById:buildConfigUuid];
+            NSLog(@"BUILD CONFIG: target-%@-%@.xcconfig", target.name, buildConfig.name);
+            NSString *filename = [NSString stringWithFormat:@"target-%@-%@", target.name, buildConfig.name];
+            writeBuildConfigToFile(buildConfig, configPath, filename);
+        }
+    }
+    
+    
+}
+
+static void printUsageAndExit(void)
+{
+    fprintf(stderr, "USAGE: projconf <project.pbxproj> <outputDirectory>\n");
+}
 
 int main(int argc, const char * argv[])
 {
-
     @autoreleasepool {
         
-        // insert code here...
-        NSLog(@"Hello, World!");
+        NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+        if (arguments.count != 3) {
+            printUsageAndExit();
+        }
         
+        buildSettingsSections = getBuildSettingsSections();
+        buildSettingsList = getBuildSettingsList();
+        
+        NSURL *projectURL = [NSURL fileURLWithPath:arguments[1]];
+        extractConfigFromProjectWithURL(projectURL, arguments[2]);
     }
     return 0;
 }

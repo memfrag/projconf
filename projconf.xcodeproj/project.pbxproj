@@ -10,6 +10,7 @@
 		5B9564F016D913100071DE71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9564EF16D913100071DE71 /* Foundation.framework */; };
 		5B9564F316D913100071DE71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9564F216D913100071DE71 /* main.m */; };
 		5B95650516D917DF0071DE71 /* MJProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B95650216D917BF0071DE71 /* MJProjectKit.framework */; };
+		5BBE248D16D9385300F375CC /* buildSettingsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE248C16D9385300F375CC /* buildSettingsList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		5B9564F216D913100071DE71 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5B9564F516D913100071DE71 /* projconf-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "projconf-Prefix.pch"; sourceTree = "<group>"; };
 		5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MJProjectKit.xcodeproj; path = vendor/MJProjectKit/MJProjectKit.xcodeproj; sourceTree = "<group>"; };
+		5BBE248B16D9385300F375CC /* buildSettingsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buildSettingsList.h; sourceTree = "<group>"; };
+		5BBE248C16D9385300F375CC /* buildSettingsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = buildSettingsList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				5B9564F216D913100071DE71 /* main.m */,
+				5BBE248B16D9385300F375CC /* buildSettingsList.h */,
+				5BBE248C16D9385300F375CC /* buildSettingsList.m */,
 				5B9564F416D913100071DE71 /* Supporting Files */,
 			);
 			path = projconf;
@@ -182,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B9564F316D913100071DE71 /* main.m in Sources */,
+				5BBE248D16D9385300F375CC /* buildSettingsList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +298,7 @@
 				5B9564FC16D913100071DE71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
