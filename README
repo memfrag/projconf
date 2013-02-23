@@ -1,0 +1,5 @@
+# projconf
+
+A Mac OS X command line tool for extracting build settings from Xcode project files and generating .xcconfig files containing the build settings.
+
+Licensed under the MIT license.
