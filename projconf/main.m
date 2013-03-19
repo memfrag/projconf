@@ -159,6 +159,7 @@ static void extractConfigFromProjectWithURL(NSURL *projectURL, NSString *configP
 static void printUsageAndExit(void)
 {
     fprintf(stderr, "USAGE: projconf <project.pbxproj> <outputDirectory>\n");
+    exit(1);
 }
 
 int main(int argc, const char * argv[])

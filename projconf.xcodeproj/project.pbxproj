@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		5B9564F016D913100071DE71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9564EF16D913100071DE71 /* Foundation.framework */; };
 		5B9564F316D913100071DE71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B9564F216D913100071DE71 /* main.m */; };
-		5B95650516D917DF0071DE71 /* MJProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B95650216D917BF0071DE71 /* MJProjectKit.framework */; };
 		5BBE248D16D9385300F375CC /* buildSettingsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE248C16D9385300F375CC /* buildSettingsList.m */; };
+		5BFA12AB16F9022D00064BFF /* libMJProjectKitLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BFA12A816F9022500064BFF /* libMJProjectKitLib.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -21,12 +21,19 @@
 			remoteGlobalIDString = 5B95648116D8E99D0071DE71;
 			remoteInfo = MJProjectKit;
 		};
-		5B95650316D917DA0071DE71 /* PBXContainerItemProxy */ = {
+		5BFA12A716F9022500064BFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5BFA129B16F9020200064BFF;
+			remoteInfo = MJProjectKitLib;
+		};
+		5BFA12A916F9022700064BFF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5B9564FD16D917BF0071DE71 /* MJProjectKit.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 5B95648016D8E99D0071DE71;
-			remoteInfo = MJProjectKit;
+			remoteGlobalIDString = 5BFA129A16F9020200064BFF;
+			remoteInfo = MJProjectKitLib;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -57,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B95650516D917DF0071DE71 /* MJProjectKit.framework in Frameworks */,
+				5BFA12AB16F9022D00064BFF /* libMJProjectKitLib.a in Frameworks */,
 				5B9564F016D913100071DE71 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				5B95650216D917BF0071DE71 /* MJProjectKit.framework */,
+				5BFA12A816F9022500064BFF /* libMJProjectKitLib.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,7 +140,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5B95650416D917DA0071DE71 /* PBXTargetDependency */,
+				5BFA12AA16F9022700064BFF /* PBXTargetDependency */,
 			);
 			name = projconf;
 			productName = projconf;
@@ -179,6 +187,13 @@
 			remoteRef = 5B95650116D917BF0071DE71 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5BFA12A816F9022500064BFF /* libMJProjectKitLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMJProjectKitLib.a;
+			remoteRef = 5BFA12A716F9022500064BFF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -194,10 +209,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5B95650416D917DA0071DE71 /* PBXTargetDependency */ = {
+		5BFA12AA16F9022700064BFF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = MJProjectKit;
-			targetProxy = 5B95650316D917DA0071DE71 /* PBXContainerItemProxy */;
+			name = MJProjectKitLib;
+			targetProxy = 5BFA12A916F9022700064BFF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
