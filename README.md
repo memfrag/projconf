@@ -9,11 +9,11 @@ Licensed under the MIT license.
 1. Clone the repo.
 2. Update the submodules:
 
-   git submodule update --init --recursive
+    git submodule update --init --recursive
 
 4. Run build script:
 
-   ./build.sh
+    ./build.sh
 
 5. The `projconf` binary is now in the `build/` subdirectory.
 
