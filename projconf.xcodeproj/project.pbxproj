@@ -281,6 +281,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "projconf/projconf-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/vendor/MJProjectKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -290,6 +291,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "projconf/projconf-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/vendor/MJProjectKit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
