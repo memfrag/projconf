@@ -11,11 +11,11 @@ Licensed under the MIT license.
 
     `git submodule update --init --recursive`
 
-4. Run build script:
+3. Run build script:
 
     `./build.sh`
 
-5. The `projconf` binary is now in the `build/` subdirectory.
+4. The `projconf` binary is now in the `build/` subdirectory.
 
 # Using
 
