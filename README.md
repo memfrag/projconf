@@ -11,8 +11,11 @@ Licensed under the MIT license.
 
    git submodule update --init --recursive
 
-3. Open projconf.xcodeproj in Xcode
-4. Build!
+4. Run build script:
+
+   ./build.sh
+
+5. The `projconf` binary is now in the `build/` subdirectory.
 
 # Using
 
