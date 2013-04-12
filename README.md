@@ -4,6 +4,10 @@ A Mac OS X command line tool for extracting build settings from Xcode project fi
 
 Licensed under the MIT license.
 
+# System Requirements
+
+This application uses Objective-C literals and therefore it must be compiled with OS X 10.8+.
+
 # Building
 
 1. Clone the repo.
