@@ -98,7 +98,7 @@ static void writeBuildConfigToFile(MJXCBuildConfiguration *buildConfig,
 {
     NSMutableString *fileContents = [NSMutableString stringWithCapacity:65536];
 
-    [fileContents appendString:@"\n// --- User Defined Settings ---\n\n"];
+    [fileContents appendString:@"// --- User Defined Settings ---\n"];
     for (NSString *key in buildConfig.buildSettings.allKeys) {
         if (isUserDefinedVariable(key)) {
             id value = buildConfig.buildSettings[key];
@@ -117,7 +117,7 @@ static void writeBuildConfigToFile(MJXCBuildConfiguration *buildConfig,
     for (NSString *sectionName in buildSettingsSections) {
         NSArray *section = buildSettingsList[sectionName];
         if (!skipEmptyDescriptions || sectionHasValues(section, buildConfig)) {
-            [fileContents appendFormat:@"\n// --- %@ ---\n\n", sectionName];
+            [fileContents appendFormat:@"\n// --- %@ ---\n", sectionName];
         }
         
         for (NSString *key in section) {
