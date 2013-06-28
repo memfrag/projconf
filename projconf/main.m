@@ -24,10 +24,12 @@
 
 #import <Foundation/Foundation.h>
 #import <MJProjectKit/MJProjectKit.h>
+#import <getopt.h>
 #import "buildSettingsList.h"
 
 static NSArray *buildSettingsSections;
 static NSDictionary *buildSettingsList;
+static BOOL ignoreNonSetValues;
 
 static BOOL isUserDefinedVariable(NSString *name)
 {
@@ -112,7 +114,9 @@ static void writeBuildConfigToFile(MJXCBuildConfiguration *buildConfig,
                     [fileContents appendFormat:@"%@ = %@\n", key, (NSString *)value];
                 }
             } else {
-                [fileContents appendFormat:@"  // %@ = \n", key];
+                if (!ignoreNonSetValues) {
+                    [fileContents appendFormat:@"  // %@ = \n", key];
+                }
             }
         }
     }
@@ -158,7 +162,7 @@ static void extractConfigFromProjectWithURL(NSURL *projectURL, NSString *configP
 
 static void printUsageAndExit(void)
 {
-    fprintf(stderr, "USAGE: projconf <project.pbxproj> <outputDirectory>\n");
+    fprintf(stderr, "USAGE: projconf [-IgnoreNonSetValues <YES|NO>] <project.pbxproj> <outputDirectory>\n");
     exit(1);
 }
 
@@ -167,15 +171,26 @@ int main(int argc, const char * argv[])
     @autoreleasepool {
         
         NSArray *arguments = [[NSProcessInfo processInfo] arguments];
-        if (arguments.count != 3) {
+        if (arguments.count != 3 && arguments.count != 5) {
             printUsageAndExit();
         }
         
+        ignoreNonSetValues = [[NSUserDefaults standardUserDefaults] boolForKey:@"IgnoreNonSetValues"];
         buildSettingsSections = getBuildSettingsSections();
         buildSettingsList = getBuildSettingsList();
         
-        NSURL *projectURL = [NSURL fileURLWithPath:arguments[1]];
-        extractConfigFromProjectWithURL(projectURL, arguments[2]);
+        NSString *projectPath;
+        NSString *configPath;
+        if (arguments.count == 3) {
+            projectPath = arguments[1];
+            configPath = arguments[2];
+        } else {
+            projectPath = arguments[3];
+            configPath = arguments[4];
+        }
+        
+        NSURL *projectURL = [NSURL fileURLWithPath:projectPath];
+        extractConfigFromProjectWithURL(projectURL, configPath);
     }
     return 0;
 }
