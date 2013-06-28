@@ -27,9 +27,14 @@
 #import <getopt.h>
 #import "buildSettingsList.h"
 
+#define kValidNumberOfArgumentsWithNoFlags 3
+#define kValidNumberOfArgumentsSkipEmptyValues 5
+#define kValidNumberOfArgumentsSkipEmptyDescriptions 7
+
 static NSArray *buildSettingsSections;
 static NSDictionary *buildSettingsList;
-static BOOL ignoreNonSetValues;
+static BOOL skipEmptyValues;
+static BOOL skipEmptyDescriptions;
 
 static BOOL isUserDefinedVariable(NSString *name)
 {
@@ -76,6 +81,17 @@ static void writeConfigFile(NSString *configPath, NSString *filename, NSString *
     }
 }
 
+static BOOL sectionHasValues(NSArray *section, MJXCBuildConfiguration *buildConfig)
+{
+    for (NSString *key in section) {
+        id value = buildConfig.buildSettings[key];
+        if (value) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 static void writeBuildConfigToFile(MJXCBuildConfiguration *buildConfig,
                                    NSString *configPath,
                                    NSString *filename)
@@ -99,8 +115,11 @@ static void writeBuildConfigToFile(MJXCBuildConfiguration *buildConfig,
     }
     
     for (NSString *sectionName in buildSettingsSections) {
-        [fileContents appendFormat:@"\n// --- %@ ---\n\n", sectionName];
         NSArray *section = buildSettingsList[sectionName];
+        if (!skipEmptyDescriptions || sectionHasValues(section, buildConfig)) {
+            [fileContents appendFormat:@"\n// --- %@ ---\n\n", sectionName];
+        }
+        
         for (NSString *key in section) {
             id value = buildConfig.buildSettings[key];
             if (value) {
@@ -114,7 +133,7 @@ static void writeBuildConfigToFile(MJXCBuildConfiguration *buildConfig,
                     [fileContents appendFormat:@"%@ = %@\n", key, (NSString *)value];
                 }
             } else {
-                if (!ignoreNonSetValues) {
+                if (!skipEmptyValues) {
                     [fileContents appendFormat:@"  // %@ = \n", key];
                 }
             }
@@ -162,8 +181,29 @@ static void extractConfigFromProjectWithURL(NSURL *projectURL, NSString *configP
 
 static void printUsageAndExit(void)
 {
-    fprintf(stderr, "USAGE: projconf [-IgnoreNonSetValues <YES|NO>] <project.pbxproj> <outputDirectory>\n");
+    fprintf(stderr, "USAGE: projconf [-SkipEmptyValues <YES|NO>] [-SkipEmptyDescriptions <YES|NO>] "
+                    "<project.pbxproj> <outputDirectory>\n");
     exit(1);
+}
+
+static void argumentIndex(NSArray *arguments, NSUInteger *projectPathIndex, NSUInteger *configPathIndex)
+{
+    switch (arguments.count) {
+        case kValidNumberOfArgumentsWithNoFlags:
+            *projectPathIndex = 1;
+            *configPathIndex = 2;
+            break;
+        case kValidNumberOfArgumentsSkipEmptyValues:
+            *projectPathIndex = 3;
+            *configPathIndex = 4;
+            break;
+        case kValidNumberOfArgumentsSkipEmptyDescriptions:
+            *projectPathIndex = 5;
+            *configPathIndex = 6;
+            break;
+        default:
+            break;
+    }
 }
 
 int main(int argc, const char * argv[])
@@ -171,24 +211,22 @@ int main(int argc, const char * argv[])
     @autoreleasepool {
         
         NSArray *arguments = [[NSProcessInfo processInfo] arguments];
-        if (arguments.count != 3 && arguments.count != 5) {
+        if (arguments.count != kValidNumberOfArgumentsWithNoFlags &&
+            arguments.count != kValidNumberOfArgumentsSkipEmptyValues &&
+            arguments.count != kValidNumberOfArgumentsSkipEmptyDescriptions) {
             printUsageAndExit();
         }
         
-        ignoreNonSetValues = [[NSUserDefaults standardUserDefaults] boolForKey:@"IgnoreNonSetValues"];
+        skipEmptyValues = [[NSUserDefaults standardUserDefaults] boolForKey:@"SkipEmptyValues"];
+        skipEmptyDescriptions = [[NSUserDefaults standardUserDefaults] boolForKey:@"SkipEmptyDescriptions"];
         buildSettingsSections = getBuildSettingsSections();
         buildSettingsList = getBuildSettingsList();
         
-        NSString *projectPath;
-        NSString *configPath;
-        if (arguments.count == 3) {
-            projectPath = arguments[1];
-            configPath = arguments[2];
-        } else {
-            projectPath = arguments[3];
-            configPath = arguments[4];
-        }
-        
+        NSUInteger projectPathIndex;
+        NSUInteger configPathIndex;
+        argumentIndex(arguments, &projectPathIndex, &configPathIndex);
+        NSString *projectPath = arguments[projectPathIndex];
+        NSString *configPath = arguments[configPathIndex];
         NSURL *projectURL = [NSURL fileURLWithPath:projectPath];
         extractConfigFromProjectWithURL(projectURL, configPath);
     }
