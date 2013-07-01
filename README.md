@@ -38,8 +38,8 @@ one target level xconfig file for each target and configuration pair.
 Let's say that the project has two configurations; Debug and Release. The project also has two targets;
 targetA and targetB. Then the following files will be generated:
 
-    project-Debug.xcconfig
-    project-Release.xcconfig
+    buildconfig-Debug.xcconfig
+    buildconfig-Release.xcconfig
     target-targetA-Debug.xcconfig
     target-targetA-Release.xcconfig
     target-targetB-Debug.xcconfig
