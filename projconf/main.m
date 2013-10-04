@@ -160,8 +160,8 @@ static void extractConfigFromProjectWithURL(NSURL *projectURL, NSString *configP
     MJXCConfigurationList *projectConfigList = [projectWrapper configurationListById:project.buildConfigurationList];
     for (NSString *buildConfigUuid in projectConfigList.buildConfigurations) {
         MJXCBuildConfiguration *buildConfig = [projectWrapper buildConfigurationById:buildConfigUuid];
-        NSLog(@"BUILD CONFIG: buildconfig-%@.xcconfig", buildConfig.name);
-        NSString *filename = [NSString stringWithFormat:@"buildconfig-%@", buildConfig.name];
+        NSLog(@"BUILD CONFIG: project-%@.xcconfig", buildConfig.name);
+        NSString *filename = [NSString stringWithFormat:@"project-%@", buildConfig.name];
         writeBuildConfigToFile(buildConfig, configPath, filename);
     }
     
