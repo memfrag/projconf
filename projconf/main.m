@@ -227,6 +227,10 @@ int main(int argc, const char * argv[])
         argumentIndex(arguments, &projectPathIndex, &configPathIndex);
         NSString *projectPath = arguments[projectPathIndex];
         NSString *configPath = arguments[configPathIndex];
+        if (![projectPath hasSuffix:@".pbxproj"]) {
+            fprintf(stderr, "The project file must have the .pbxproj extension.\n");
+            exit(1);
+        }
         NSURL *projectURL = [NSURL fileURLWithPath:projectPath];
         extractConfigFromProjectWithURL(projectURL, configPath);
     }
