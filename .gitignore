@@ -106,3 +106,9 @@ xcuserdata
 
 *.moved-aside
 
+####
+# Xcode 5 checkout file
+#
+*.xccheckout
+
+
